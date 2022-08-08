@@ -1,5 +1,5 @@
-# dash
-A shell for visualizing data structures on the linux terminal
+# dscli
+A terminal applciation for visualizing data structures
 
 # THIS IS CURRENTLY UNFINISHED
 For now there is only the linked list program (Which still isn't finished), in the future I will be adding more data structures (like binary search trees, heaps)
