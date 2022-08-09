@@ -7,7 +7,6 @@
 #define WHITE "\033[0;37m"
 #define BLUE "\033[0;34m"
 #define GREEN "\033[0;32m"
-#define YELLOW "\033[0;33m"
 #define CYAN "\033[0;36m"
 #define MAGENTA "\033[0;35m"
 
@@ -185,7 +184,7 @@ int main() {
 		printf("%sList:%s\n", GREEN, WHITE);
 		printf("%s", MAGENTA);
 		printList(list);
-		printf("\n\n%sOperation list:%s\n1 = Quits the program\n2 = PUSH - Adds a new node at the end of the list\n3 = UNSHIFT - Adds a new node at the start of the list\n4 = INSERT - Adds a new node at a certain index in the list\n5 = POP - Deletes a node at the end of the list\n6 = SHIFT - Deletes a node at the start of the list\n7 = DELETE - Deletes a node at a certain index\n8 = SIZE - Displays the size of the list\n%sEnter an operation: %s", BLUE, YELLOW, BLUE, WHITE);
+		printf("\n\n%sOperation list:%s\n1 = Quits the program\n2 = PUSH - Adds a new node at the end of the list\n3 = UNSHIFT - Adds a new node at the start of the list\n4 = INSERT - Adds a new node at a certain index in the list\n5 = POP - Deletes a node at the end of the list\n6 = SHIFT - Deletes a node at the start of the list\n7 = DELETE - Deletes a node at a certain index\n8 = SIZE - Displays the size of the list\n%sEnter an operation: %s", BLUE, WHITE, BLUE, WHITE);
 		if(scanf("%d", &input) != 1) {
 			cpyerr(message, 0);
 			continue;
@@ -202,7 +201,7 @@ int main() {
 				free(list);
 				return 0;
 			case 2: // PUSH
-				printf("%s[PUSH]%s Enter a value for the new node: %s", CYAN, YELLOW, WHITE);
+				printf("%s[PUSH]%s Enter a value for the new node: ", CYAN, WHITE);
 				if(scanf("%d", &nodeValue) != 1) {
 					cpyerr(message, 0);
 				} else {
@@ -210,7 +209,7 @@ int main() {
 				}
 				break;
 			case 3: // UNSHIFT
-				printf("%s[UNSHIFT]%s Enter a value for the new node: %s", CYAN, YELLOW, WHITE);
+				printf("%s[UNSHIFT]%s Enter a value for the new node: ", CYAN,  WHITE);
 				if(scanf("%d", &nodeValue) != 1) {
 					cpyerr(message, 0);
 					continue;
@@ -218,12 +217,12 @@ int main() {
 				unshift(nodeValue, list);
 				break;
 			case 4: // INSERT
-				printf("%s[INSERT]%s Enter a value for the new node: %s", CYAN, YELLOW, WHITE);
+				printf("%s[INSERT]%s Enter a value for the new node: ", CYAN, WHITE);
 				if(scanf("%d", &nodeValue) != 1) {
 					cpyerr(message, 0);
 					continue;
 				}
-				printf("%s[INSERT]%s Enter an index to insert the new node in: %s", CYAN, YELLOW, WHITE);
+				printf("%s[INSERT]%s Enter an index to insert the new node in: ", CYAN, WHITE);
 				if(scanf("%d", &index) != 1) {
 					cpyerr(message, 0);
 					continue;
@@ -242,7 +241,7 @@ int main() {
 				if(list->size <= 0) {
 					cpyerr(message, 1);
 				} else {
-					printf("%s[DELETE]%s Enter an index to delete at: %s", CYAN, YELLOW, WHITE);
+					printf("%s[DELETE]%s Enter an index to delete at: ", CYAN, WHITE);
 					if(scanf("%d", &index) != 1) {
 						cpyerr(message, 0);
 						continue;
