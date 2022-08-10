@@ -9,11 +9,13 @@
 #define RED "\033[0;31m"
 
 int main() {
-	char command[100];
+	char command[6];
 
 	while(1) {
 		printf("%sdscli>%s ", BLUE, WHITE);
-		scanf("%100s", &command);
+		scanf("%5s", &command);
+		int c;
+		while(c = getchar() != '\n' && c != EOF);
 
 		if(strcmp(command, "q") == 0) {
 			break;
