@@ -26,7 +26,7 @@ int main() {
 		} else if(strcmp(command, "list") == 0) {
 			pid_t childPID = fork();
 			if(childPID == 0) {
-				if(system("/home/sharkpause/Code/C/dscli/LinkedList/linkedlist") != 0) exit(1);
+				if(system("LinkedList/linkedlist") != 0) exit(1);
 				exit(0);
 			} else if(childPID < 0) {
 				printf("%s[ERROR] Child process failed to create!", RED);
@@ -37,7 +37,7 @@ int main() {
 		} else if(strcmp(command, "tree") == 0) {
 			pid_t childPID = fork();
 			if(childPID == 0) {
-				if(system("/home/sharkpause/Code/C/dscli/BST/bst") != 0) exit(1);
+				if(system("BST/bst") != 0) exit(1);
 				exit(0);
 			} else if(childPID < 0) {
 				printf("%s[ERROR] Child process failed to create!", RED);
