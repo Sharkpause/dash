@@ -20,13 +20,24 @@ int main() {
 		if(strcmp(command, "q") == 0) {
 			break;
 		} else if(strcmp(command, "help") == 0) {
-			printf("help - Prints out this help text\nlist - Executes the linked list program\nq - Exits out dscli\nclear - Clears the screen\n");
+			printf("help - Prints out this help text\nlist - Executes the linked list program\ntree - Executes the binary search tree program\nq - Exits out dscli\nclear - Clears the screen\n");
 		} else if(strcmp(command, "clear") == 0) {
 			system("clear");
 		} else if(strcmp(command, "list") == 0) {
 			pid_t childPID = fork();
 			if(childPID == 0) {
 				if(system("/home/sharkpause/Code/C/dscli/LinkedList/linkedlist") != 0) exit(1);
+				exit(0);
+			} else if(childPID < 0) {
+				printf("%s[ERROR] Child process failed to create!", RED);
+			} else {
+				int childStatus;
+				wait(&childStatus);
+			}
+		} else if(strcmp(command, "tree") == 0) {
+			pid_t childPID = fork();
+			if(childPID == 0) {
+				if(system("/home/sharkpause/Code/C/dscli/BST/bst") != 0) exit(1);
 				exit(0);
 			} else if(childPID < 0) {
 				printf("%s[ERROR] Child process failed to create!", RED);

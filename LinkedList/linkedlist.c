@@ -34,7 +34,7 @@ int push(int value, List* list) {
 	}
 
 	++list->size;
-	return value;
+	return 0;
 }
 
 int unshift(int value, List* list) {
@@ -48,7 +48,7 @@ int unshift(int value, List* list) {
         newNode->next = temp;
 
 	++list->size;
-	return value;
+	return 0;
 }
 
 int insert(int value, List* list, int index) {
@@ -57,7 +57,7 @@ int insert(int value, List* list, int index) {
 	} else if(index == -1 || index == list->size) {
 		return push(value, list);
 	} else if(index > list->size) {
-		return 0;
+		return -1;
 	}
 
 	Node* newNode = (Node*)malloc(sizeof(Node));
@@ -71,19 +71,19 @@ int insert(int value, List* list, int index) {
 	newNode->next = next;
 
 	++list->size;
-	return value;
+	return 0;
 }
 
 int pop(List* list) {
 	Node* temp = list->head;
 
-	if(temp == NULL) return 0;
+	if(temp == NULL) return 1;
 	if(temp->next == NULL) {
 		int value = temp->value;
 		free(temp);
 		list->head = NULL;
 		--list->size;
-		return value;
+		return 0;
 	}
 
 	Node* previous;
@@ -97,11 +97,11 @@ int pop(List* list) {
 	list->tail = previous;
 
 	--list->size;
-	return list->tail->value;
+	return 0;
 }
 
 int shift(List* list) {
-	if(list->head == NULL) return 0;
+	if(list->head == NULL) return 1;
 	if(list->head->next == NULL) return pop(list);
 
 	int value = list->head->value;
@@ -110,17 +110,17 @@ int shift(List* list) {
 	list->head = next;
 
 	--list->size;
-	return value;
+	return 0;
 }
 
 int delete(int index, List* list) {
 	if(index == 0) return shift(list);
-	if(index >= list->size) return 0;
+	if(index >= list->size) return -1;
 	if(index == list->size-1 || index == -1) return pop(list);
 
 	Node* temp = list->head;
 	
-	if(temp == NULL) return 0;
+	if(temp == NULL) return 1;
 	if(temp->next == NULL) return pop(list);
 
 	int value;
@@ -133,7 +133,7 @@ int delete(int index, List* list) {
 	temp->next = next;
 
 	--list->size;
-	return value;
+	return 0;
 }
 
 void freeList(List* list) {
@@ -155,13 +155,13 @@ void printList(List* list) {
 }
 
 void cpyerr(char* message, int type) {
+	strcpy(message, RED);
 	if(type == 0) {
-		strcpy(message, RED);
 		strcat(message, "[ERROR] Input was not an integer!\n\n");
 	} else if(type == 1) {
-		strcpy(message, RED);
-		strcat(message, "[ERROR] List size is 0!\n\n");
+		strcat(message, "[ERROR] List index is 0!\n\n");
 	}
+
 	int c;
 	while(c = getchar() != '\n' && c != EOF);
 }
@@ -173,18 +173,21 @@ int main() {
 	List* list = (List*)malloc(sizeof(List));
 
 	int input;
-	char message[100] = "";
 	int nodeValue;
 	int index;
+	char message[36] = "";
 
 	while(1) {
 		system("clear");
+
 		printf("%s", message);
 		message[0] = '\0';
-		printf("%sList:%s\n", GREEN, WHITE);
-		printf("%s", MAGENTA);
+
+		printf("%sList:%s\n", GREEN, MAGENTA);
 		printList(list);
+
 		printf("\n\n%sOperation list:%s\n1 = Quits the program\n2 = PUSH - Adds a new node at the end of the list\n3 = UNSHIFT - Adds a new node at the start of the list\n4 = INSERT - Adds a new node at a certain index in the list\n5 = POP - Deletes a node at the end of the list\n6 = SHIFT - Deletes a node at the start of the list\n7 = DELETE - Deletes a node at a certain index\n8 = SIZE - Displays the size of the list\n%sEnter an operation: %s", BLUE, WHITE, BLUE, WHITE);
+
 		if(scanf("%d", &input) != 1) {
 			cpyerr(message, 0);
 			continue;
@@ -194,60 +197,55 @@ int main() {
 		switch(input) {
 			default:
 				snprintf(message, 100, "%s[ERROR] %d is not a valid operation!\n\n", RED, input);
+
 				break;
 			case 1: // QUIT
 				system("tput rmcup");
+
 				freeList(list);
 				free(list);
+
 				return 0;
 			case 2: // PUSH
 				printf("%s[PUSH]%s Enter a value for the new node: ", CYAN, WHITE);
-				if(scanf("%d", &nodeValue) != 1) {
-					cpyerr(message, 0);
-				} else {
-					push(nodeValue, list);
-				}
+
+				if(scanf("%d", &nodeValue) != 1) cpyerr(message, 0);
+				else push(nodeValue, list);
+
 				break;
 			case 3: // UNSHIFT
 				printf("%s[UNSHIFT]%s Enter a value for the new node: ", CYAN,  WHITE);
-				if(scanf("%d", &nodeValue) != 1) {
-					cpyerr(message, 0);
-					continue;
-				}
-				unshift(nodeValue, list);
+
+				if(scanf("%d", &nodeValue) != 1) cpyerr(message, 0);
+				else unshift(nodeValue, list);
+
 				break;
 			case 4: // INSERT
 				printf("%s[INSERT]%s Enter a value for the new node: ", CYAN, WHITE);
+
 				if(scanf("%d", &nodeValue) != 1) {
 					cpyerr(message, 0);
-					continue;
+				} else {
+					printf("%s[INSERT]%s Enter an index to insert the new node in: ", CYAN, WHITE);
+					if(scanf("%d", &index) != 1) cpyerr(message, 0);
+					else insert(nodeValue, list, index);	
 				}
-				printf("%s[INSERT]%s Enter an index to insert the new node in: ", CYAN, WHITE);
-				if(scanf("%d", &index) != 1) {
-					cpyerr(message, 0);
-					continue;
-				}
-				insert(nodeValue, list, index);	
+
 				break;
 			case 5: // POP
-				if(list->size <= 0) cpyerr(message, 1);
-				else pop(list);
+				if(pop(list) == -1) cpyerr(message, 1);
+
 				break;
 			case 6: // SHIFT
-				if(list->size <= 0) cpyerr(message, 1);
-				else shift(list);
+				if(shift(list) <= -1) cpyerr(message, 1);
+
 				break;
 			case 7: // DELETE
-				if(list->size <= 0) {
-					cpyerr(message, 1);
-				} else {
-					printf("%s[DELETE]%s Enter an index to delete at: ", CYAN, WHITE);
-					if(scanf("%d", &index) != 1) {
-						cpyerr(message, 0);
-						continue;
-					}
-					delete(index, list);
-				}
+				printf("%s[DELETE]%s Enter an index to delete at: ", CYAN, WHITE);
+
+				if(scanf("%d", &index) != 1) cpyerr(message, 0);
+				else if(delete(index, list) <= -1) cpyerr(message, 1);
+
 				break;
 			case 8: // SIZE
 				snprintf(message, 100, "%sSize of list: %s%d\n\n", GREEN, MAGENTA, list->size);
