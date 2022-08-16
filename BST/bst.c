@@ -9,6 +9,7 @@
 #define BLUE "\033[0;34m"
 #define MAGENTA "\033[0;35m"
 #define WHITE "\033[0;37m"
+#define CYAN "\033[0;36m"
 
 typedef struct Node {
 	int value;
@@ -60,7 +61,7 @@ void postorder(Node* root) {
 
 Node* min(Node* root) {
 	Node* temp = root;
-	if(temp == NULL) return;
+	if(temp == NULL) return temp;
 	
 	while(temp->left != NULL) {
 		temp = temp->left;
@@ -117,7 +118,7 @@ int main() {
 
 	int input;
 	int nodeValue;
-	char message[100];
+	char message[45];
 	Node* root = NULL;
 
 	while(1) {
@@ -131,7 +132,7 @@ int main() {
 		printf("Pre-order traversal: "); preorder(root); printf("\n");
 		printf("Post-order traversal: "); postorder(root); printf("\n\n");
 
-		printf("%s1 = Quits the program\n2 = INSERT - Inserts a new node into the tree\n3 = DELETE - Deletes a node from the tree\n%sEnter an operation: %s", WHITE, BLUE, WHITE);
+		printf("%sOperation list:\n%s1 = Quits the program\n2 = INSERT - Inserts a new node into the tree\n3 = DELETE - Deletes a node from the tree\n%sEnter an operation: %s", BLUE, WHITE, BLUE, WHITE);
 
 		if(scanf("%d", &input) != 1) {
 			cpyerr(message, 0);
@@ -140,7 +141,9 @@ int main() {
 
 		switch(input) {
 			default:
-				snprintf(message, 100, "%s[ERROR] '%d' is not a valid input!\n\n", RED, input);
+				snprintf(message, 100, "%s[ERROR] '%d' is not a valid operation!\n\n", RED, input);
+				int c;
+				while(c = getchar() != '\n' && c != EOF);
 
 				break;
 			case 1:
@@ -149,7 +152,7 @@ int main() {
 
 				return 0;
 			case 2:
-				printf("\n%sEnter the value for the new node: %s", BLUE, WHITE);
+				printf("\n%s[INSERT]%s Enter the value for the new node: ", CYAN, WHITE);
 
 				if(scanf("%d", &nodeValue) != 1) {
 					cpyerr(message, 0);
@@ -160,7 +163,7 @@ int main() {
 
 				break;
 			case 3:
-				printf("\n%sEnter the value of the node to delete: %s", BLUE, WHITE);
+				printf("\n%s[DELETE]%s Enter the value of the node to delete: ", CYAN, WHITE);
 
 				if(scanf("%d", &nodeValue) != 1) cpyerr(message, 0);
 				else root = delete(nodeValue, root);

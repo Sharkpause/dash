@@ -159,7 +159,7 @@ void cpyerr(char* message, int type) {
 	if(type == 0) {
 		strcat(message, "[ERROR] Input was not an integer!\n\n");
 	} else if(type == 1) {
-		strcat(message, "[ERROR] List index is 0!\n\n");
+		strcat(message, "[ERROR] List index is invalid!\n\n");
 	}
 
 	int c;
@@ -175,7 +175,7 @@ int main() {
 	int input;
 	int nodeValue;
 	int index;
-	char message[36] = "";
+	char message[41] = "";
 
 	while(1) {
 		system("clear");
