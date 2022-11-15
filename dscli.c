@@ -20,7 +20,7 @@ int main() {
 		if(strcmp(command, "q") == 0) {
 			break;
 		} else if(strcmp(command, "help") == 0) {
-			printf("help - Prints out this help text\nlist - Executes the linked list program\ntree - Executes the binary search tree program\nstack - Executes the stack program\nq - Exits out dscli\nclear - Clears the screen\n");
+			printf("list - Executes the linked list program\ntree - Executes the binary search tree program\nstack - Executes the stack program\nheap - Executes the heap program\nqueue - Executes the queue program\n\nq - Exits out dscli\nclear - Clears the screen\nhelp - Prints out this help text\n");
 			continue;
 		} else if(strcmp(command, "clear") == 0) {
 			system("clear");
@@ -35,6 +35,10 @@ int main() {
 			strcpy(execute, "BST/bst");
 		} else if(strcmp(command, "stack") == 0) {
 			strcpy(execute, "Stack/stack");
+		} else if(strcmp(command, "heap") == 0) {
+			strcpy(execute, "Heap/heap");
+		} else if(strcmp(command, "queue") == 0) {
+			strcpy(execute, "Queue/queue");
 		} else {
 			printf("%s[ERROR] Invalid command!\n", RED);
 			continue;

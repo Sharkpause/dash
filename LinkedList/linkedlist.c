@@ -143,6 +143,7 @@ void freeList(List* list) {
 		free(list->head);
 		list->head = next;
 	}
+	free(list);
 }
 
 void printList(List* list) {
@@ -203,7 +204,6 @@ int main() {
 				system("tput rmcup");
 
 				freeList(list);
-				free(list);
 
 				return 0;
 			case 2: // PUSH
@@ -253,7 +253,6 @@ int main() {
 	}
 
 	freeList(list);
-	free(list);
 
 	system("tput rmcup");
 	
